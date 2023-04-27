@@ -19,6 +19,9 @@ export default function Login() {
         validatePassword();
     }, [password]);
 
+    /**
+     * Function to validate password form field
+     */
     function validatePassword() {
         if (validators.required(password)) {
             setErrors((prevError) => {
@@ -31,6 +34,10 @@ export default function Login() {
         }
     }
 
+    /**
+     * Function to submit form values
+     * @param {*} event Submit event 
+     */
     function handleSubmit(event) {
         event.preventDefault();
         setSubmit(true);

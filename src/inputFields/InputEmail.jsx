@@ -11,6 +11,9 @@ export default function EmailInput({ email, setEmail, isFormSubmitted, placehold
     const errorMessage = new ErrorMessage();
     const validator = new Validators();
 
+    /**
+     * Function to validate email form field
+     */
     function validateEmail() {
         if (validator.required(email)) {
             setErrors((prevError) => {

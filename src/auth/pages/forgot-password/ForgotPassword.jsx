@@ -9,6 +9,10 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [isFormSubmitted, setSubmit] = useState(false);
 
+    /**
+     * Function to submit form values
+     * @param {*} event Submit event
+     */
     function handleSubmit(event) {
         event.preventDefault();
         setSubmit(true);

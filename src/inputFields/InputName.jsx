@@ -11,6 +11,9 @@ export default function NameInput({ value, isFormSubmitted, placeholder, setValu
     const errorMessage = new ErrorMessage();
     const validator = new Validators();
 
+    /**
+     * Function to validate name form field
+     */
     function validateValue() {
         if (validator.required(value)) {
             setErrors((prevError) => {

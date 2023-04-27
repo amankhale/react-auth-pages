@@ -11,6 +11,9 @@ export default function PasswordInput({ password, isFormSubmitted, placeholder, 
     const errorMessage = new ErrorMessage();
     const validator = new Validators();
 
+    /**
+     * Function to validate password form field
+     */
     function validatePassword() {
         if (validator.required(password)) {
             setErrors((prevError) => {
