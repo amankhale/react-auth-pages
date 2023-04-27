@@ -68,7 +68,7 @@ export default function Signup() {
                     <input type="submit" className="button" defaultValue="Signup" />
                 </form>
                 <div className="signup">
-                    <span className="signup">
+                    <span className="signup fs-12">
                         Already have an account?
                         <Link to={'/auth/login'}>
                             <label htmlFor="check"> Login</label>
