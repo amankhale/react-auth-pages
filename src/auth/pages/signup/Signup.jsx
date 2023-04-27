@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './Signup.css';
 import { Link } from 'react-router-dom';
-import Validators from '../../../utility/Validators';
-import ErrorMessage from '../../../utility/ErrorMessage';
+import NameInput from '../../../inputFields/InputName';
+import EmailInput from '../../../inputFields/InputEmail';
+import PasswordInput from '../../../inputFields/InputPassword';
 
 export default function Signup() {
-
-    const validator = new Validators();
-    const errorMessage = new ErrorMessage();
 
     const [errors, setErrors] = useState({});
     const [name, setName] = useState('');
@@ -15,84 +13,17 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     const [isFormSubmitted, setSubmit] = useState(false);
 
-    useEffect(() => {
-        validateName();
-    }, [name]);
-
-    useEffect(() => {
-        validateEmail();
-    }, [email]);
-
-    useEffect(() => {
-        validatePassword();
-    }, [password]);
-
-    function validateName() {
-        if (validator.required(name)) {
-            setErrors((prevError) => {
-                return { ...prevError, name: 'required' }
-            });
-        } else if (validator.minLength(name, 3)) {
-            setErrors((prevError) => {
-                return { ...prevError, name: 'minlength' }
-            });
-        } else if (validator.maxLength(name, 20)) {
-            setErrors((prevError) => {
-                return { ...prevError, name: 'maxlength' }
-            });
-        } else {
-            setErrors((prevError) => {
-                return { ...prevError, name: null }
-            });
-        }
-    }
-
-    function validateEmail() {
-        if (validator.required(email)) {
-            setErrors((prevError) => {
-                return { ...prevError, email: 'required' }
-            });
-        } else if (validator.email(email)) {
-            setErrors((prevError) => {
-                return { ...prevError, email: 'pattern' }
-            });
-        } else {
-            setErrors((prevError) => {
-                return { ...prevError, email: null }
-            });
-        }
-    }
-
-    function validatePassword() {
-        if (validator.required(password)) {
-            setErrors((prevError) => {
-                return { ...prevError, password: 'required' }
-            });
-        } else if (validator.minLength(password, 8)) {
-            setErrors((prevError) => {
-                return { ...prevError, password: 'minlength' }
-            });
-        } else if (validator.maxLength(password, 16)) {
-            setErrors((prevError) => {
-                return { ...prevError, password: 'maxlength' }
-            });
-        } else if (validator.password(password)) {
-            setErrors((prevError) => {
-                return { ...prevError, password: 'pattern' }
-            });
-        } else {
-            setErrors((prevError) => {
-                return { ...prevError, password: null }
-            });
-        }
-    }
-
     function handleSubmit(event) {
         event.preventDefault();
         setSubmit(true);
+        let isError = Object.values(errors).filter(x => x)?.length;
+        if (!isError) {
+            // Submit to api
 
+            let payload = {name, email, password};
+            console.log(payload);
+        }
     }
-
 
     return (
         <div className="container">
@@ -101,24 +32,34 @@ export default function Signup() {
                 <header>Signup</header>
                 <form onSubmit={handleSubmit}>
                     <div className="form-field">
-                        <input onInput={(e) => setName(e.target.value)} value={name} type="text" placeholder="Enter your name" />
-                        {isFormSubmitted && <div className="error-msg">
-                            {errors?.name == 'required' && errorMessage.required('Name')}
-                            {errors?.name == 'minlength' && errorMessage.minLength(3)}
-                            {errors?.name == 'maxlength' && errorMessage.maxLength(20)}
-                        </div>}
+                        <NameInput
+                            value={name}
+                            isFormSubmitted={isFormSubmitted}
+                            placeholder={"Enter your name"}
+                            setValue={setName}
+                            errors={errors}
+                            setErrors={setErrors}>
+                        </NameInput>
                     </div>
                     <div className="form-field">
-                        <input onInput={(e) => setEmail(e.target.value)} value={email} type="text" placeholder="Enter your email" />
-                        <div className="error-msg">
-                            {errors?.email && errorMessage.required('Email')}
-                        </div>
+                        <EmailInput
+                            email={email}
+                            isFormSubmitted={isFormSubmitted}
+                            placeholder={"Enter your email"}
+                            setEmail={setEmail}
+                            errors={errors}
+                            setErrors={setErrors}>
+                        </EmailInput>
                     </div>
                     <div className="form-field">
-                        <input onInput={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Enter your password" />
-                        <div className="error-msg">
-                            {errors?.password && errorMessage.required('Password')}
-                        </div>
+                        <PasswordInput
+                            password={password}
+                            isFormSubmitted={isFormSubmitted}
+                            placeholder={"Enter password"}
+                            setPassword={setPassword}
+                            errors={errors}
+                            setErrors={setErrors}>
+                        </PasswordInput>
                     </div>
                     <input type="submit" className="button" defaultValue="Signup" />
                 </form>

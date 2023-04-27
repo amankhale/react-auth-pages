@@ -118,3 +118,7 @@ body {
 .signup label:hover {
     text-decoration: underline;
 }
+
+.input-invalid {
+    border: 2px solid #ff4e4e !important;
+}

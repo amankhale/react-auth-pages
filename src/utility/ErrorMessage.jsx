@@ -15,4 +15,8 @@ export default class ErrorMessage {
     maxLength = (max) => {
         return <p>Maximum {max} characters are allowed</p>
     }
+
+    password = () => {
+        return <p>Password should be alphanumeric with minimum 8 characters</p>
+    }
 }
