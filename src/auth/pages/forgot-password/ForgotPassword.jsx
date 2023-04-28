@@ -25,7 +25,6 @@ export default function ForgotPassword() {
 
     return (
         <div className="container">
-            <input type="checkbox" id="check" />
             <div className="login form">
                 <header>Forgot Password</header>
                 <form onSubmit={handleSubmit}>

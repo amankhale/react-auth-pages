@@ -31,7 +31,6 @@ export default function Signup() {
 
     return (
         <div className="container">
-            <input type="checkbox" id="check" />
             <div className="login form">
                 <header>Signup</header>
                 <form onSubmit={handleSubmit}>

@@ -48,10 +48,8 @@ export default function Login() {
         }
     }
 
-
     return (
         <div className="container">
-            <input type="checkbox" id="check" />
             <div className="login form">
                 <header>Login</header>
                 <form onSubmit={handleSubmit}>
