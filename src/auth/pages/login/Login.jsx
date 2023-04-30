@@ -72,7 +72,7 @@ export default function Login() {
                         }
                     </div>
                     <Link to={'/auth/forgot-password'}>Forgot password?</Link>
-                    <input type="submit" className="button" defaultValue="Login" />
+                    <button type="submit" className="button mt-2">Login</button>
                 </form>
                 <div className="signup">
                     <span className="signup fs-12">

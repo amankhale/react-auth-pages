@@ -38,7 +38,7 @@ export default function ForgotPassword() {
                             setErrors={setErrors}>
                         </EmailInput>
                     </div>
-                    <input type="submit" className="button" defaultValue="Send Link" />
+                    <button type="submit" className="button">Send Link</button>
                 </form>
                 <div className="signup">
                     <span className="signup">

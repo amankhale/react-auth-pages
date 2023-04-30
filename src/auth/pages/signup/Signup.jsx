@@ -64,7 +64,7 @@ export default function Signup() {
                             setErrors={setErrors}>
                         </PasswordInput>
                     </div>
-                    <input type="submit" className="button" defaultValue="Signup" />
+                    <button type="submit" className="button">Sign up</button>
                 </form>
                 <div className="signup">
                     <span className="signup fs-12">
