@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins';
+}
+
+body {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 20px;
+  height: auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.employee-form {
+  padding: 10px;
+  /* min-width: 45%; */
+  border: 2px solid rgb(197, 197, 197);
+  border-radius: 20px;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.form-field input[type='text'] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid rgb(149, 149, 149);
+}
+
+.form-field select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid rgb(149, 149, 149);
+}
+
+.form-field textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid rgb(149, 149, 149);
+  resize: none;
+}
+
+.form-field input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid rgb(149, 149, 149);
+  resize: none;
+}
+
+.form-field button[type="submit"] {
+  border: none;
+  background-color: rgb(125, 130, 255);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.reset-btn {
+  border: none;
+  background-color: rgb(202, 128, 255);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.submit {
+  display: flex;
+  gap: 20px;
+}
+
+.multiselect {
+  display: flex;
+}
+
+.multiselect label {
+  display: flex;
+  margin-right: 10px;
+}
+
+.multiselect input {
+  margin-right: 10px;
+}
+
+.remarks {
+  grid-column: span 2;
+}
+
+.employee-list {
+  padding: 10px;
+  width: 50%;
+  border: 2px solid rgb(197, 197, 197);
+  border-radius: 20px;
+
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.no-data-found {
+  width: 100%;
+  height: 70%;
+  display: grid;
+  place-content: center;
+}
+
+.delete-btn,
+.edit-btn {
+  padding: 5px;
+  border: none;
+  /* background-color: rgb(255, 127, 127); */
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-btn {
+  margin-right: 10px;
+  background-color: yellowgreen;
+}
+
+.delete-btn {
+  background-color: rgb(255, 127, 127);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
