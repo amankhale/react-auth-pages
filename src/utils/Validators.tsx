@@ -2,7 +2,7 @@ export default class Validators {
 
     passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
     emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-    nameRegex = /[a-zA-Z, {1,10}]/
+    nameRegex = /^[a-zA-Z]{1,15}$/
 
     required = (fieldValue: string) => {
         if (!fieldValue?.length) {

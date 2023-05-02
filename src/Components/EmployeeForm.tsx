@@ -9,7 +9,7 @@ import Validators from "../utils/Validators";
 
 export default function EmployeeForm(props: any) {
 
-    const { handleSubmit, isEditActive } = props;
+    const { handleSubmit, isEditActive, setEditActive, editData } = props;
 
     const graduationList = GRADUATION;
     const designationList = DESIGNATION;
@@ -46,7 +46,11 @@ export default function EmployeeForm(props: any) {
     }, [techStack]);
     useEffect(() => {
         validateLocation();
-    }, [location])
+    }, [location]);
+
+    useEffect(() => {
+        handleEdit(editData);
+    }, [isEditActive]);
 
     function handleTechStack(value: string) {
         setTechstack((prevData: any) => {
@@ -69,7 +73,7 @@ export default function EmployeeForm(props: any) {
             return;
         }
         let payload: empForm = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
-        console.log(payload);
+        // console.log(payload);
         handleSubmit(payload);
         handleReset();
     }
@@ -86,19 +90,24 @@ export default function EmployeeForm(props: any) {
         setRemarks('');
         setFormSubmitted(false);
         setError({});
+        setEditActive(false);
     }
 
-    // function handleEdit(data: empForm) {
-    //     setFirstName(data?.firstName);
-    //     setLastName(data?.lastName);
-    //     setEmail(data?.email);
-    //     setDate(data?.date);
-    //     setEducation(data?.education);
-    //     setDesignation(data?.designation);
-    //     setTechstack(data?.techStack);
-    //     setLocation(data?.location);
-    //     setRemarks(data?.remarks);
-    // }
+    function handleEdit(data: empForm) {
+        console.log('called');
+        
+        if (isEditActive) {
+            setFirstName(data?.firstName);
+            setLastName(data?.lastName);
+            setEmail(data?.email);
+            setDate(data?.date);
+            setEducation(data?.education);
+            setDesignation(data?.designation);
+            setTechstack(data?.techStack);
+            setLocation(data?.location);
+            setRemarks(data?.remarks);
+        }
+    }
 
     function validateFirstName(): void {
         if (!validators.nameRegex.test(firstName)) {
@@ -181,7 +190,7 @@ export default function EmployeeForm(props: any) {
                 <InputText value={email} error={isFormSubmitted ? error.email : ''} setValue={setEmail} label="Email" placeholder="Enter your email"></InputText>
                 <InputDate value={date} error={isFormSubmitted ? error.date : ''} setValue={setDate} label="Date of Birth"></InputDate>
                 <SelectInput list={graduationList} value={education} setValue={setEducation} label="Select highest education"></SelectInput>
-                <SelectInput list={designationList} value={designation} setValue={setDesignation} label="Enter your designation"></SelectInput>
+                <SelectInput list={designationList} value={designation} setValue={setDesignation} label="Select your designation"></SelectInput>
 
                 <div className="form-field">
                     <label className="fs-12">Select your tech stack</label>

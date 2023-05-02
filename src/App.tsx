@@ -21,7 +21,6 @@ export default function App() {
         return new_data;
       }
     });
-    setEditActive(false);
   }
 
   function handleEdit(data: empForm) {
@@ -39,7 +38,7 @@ export default function App() {
 
   return (
     <div className="container">
-      <EmployeeForm handleSubmit={handleSubmit} isEditActive={isEditActive} editData={editData}></EmployeeForm>
+      <EmployeeForm handleSubmit={handleSubmit} isEditActive={isEditActive} setEditActive={setEditActive} editData={editData}></EmployeeForm>
       <EmployeeList empList={empList} handleDelete={handleDelete} handleEdit={handleEdit}></EmployeeList>
     </div>
   )
