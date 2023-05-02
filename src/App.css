@@ -27,6 +27,10 @@ body {
 
 .form {
   margin-top: 20px;
+  display: grid;
+  place-content: center;
+  grid-template-columns: 45% 45%;
+  gap: 20px;
 }
 
 .form-field {
@@ -154,12 +158,24 @@ table {
   cursor: pointer;
 }
 
+.fs-10 {
+  font-size: 10px;
+}
+
 .fs-12 {
   font-size: 12px;
 }
 
+.fs-14 {
+  font-size: 14px;
+}
+
 .d-flex {
   display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
 }
 
 .gap-20 {
@@ -168,4 +184,12 @@ table {
 
 input[type="checkbox"] {
   margin-right: 10px;
+}
+
+.input-invalid {
+  border: 2px solid rgb(255, 60, 60) !important;
+}
+
+.error-msg {
+  color: rgb(255, 60, 60) !important;
 }
