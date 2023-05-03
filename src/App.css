@@ -123,13 +123,12 @@ body {
 
 .employee-list-container {
   padding: 20px 15%;
-  border: 2px solid red;
   height: 100vh;
 }
 
 .employee-list {
   padding: 10px;
-  width: auto;
+  width: 700px;
   border: 2px solid rgb(197, 197, 197);
   border-radius: 20px;
 }

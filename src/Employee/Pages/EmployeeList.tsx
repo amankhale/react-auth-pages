@@ -1,26 +1,22 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteEmployee } from "../EmployeeSlice/employee.slice";
 
 export default function EmployeeList() {
   // const { empList, handleDelete, handleEdit } = props;
 
-  const [empList, setEmpList] = useState([
-    {
-      firstName: "asdfsaf",
-      lastName: "asdfasdfasdf",
-      email: "asdf@asdf.com",
-      designation: "SSE",
-    },
-  ]);
+  const { empList } = useSelector((state: any) => state.employee);
+  const dispatch = useDispatch();
 
-  function handleEdit(data: any): void {}
-
-  function handleDelete(data: any): void {}
+  function handleDelete(index: number) {
+    dispatch(deleteEmployee(index));
+  }
 
   return (
     <div className="employee-list-container d-flex justify-content-center">
       <div className="employee-list">
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between gap-20">
           <h2>Employee List</h2>
           <Link to="/employee/add">
             <button className="reset-btn">Add Employee</button>
@@ -48,7 +44,7 @@ export default function EmployeeList() {
                   <td>{data?.designation}</td>
                   <td className="action-btn">
                     <button
-                      onClick={() => handleEdit(data)}
+                      //   onClick={() => handleEdit(data)}
                       className="edit-btn"
                     >
                       Edit
