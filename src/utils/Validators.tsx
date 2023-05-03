@@ -1,9 +1,12 @@
 export default class Validators {
 
-    passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-    emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-    nameRegex = /^[a-zA-Z]{1,15}$/
+    readonly PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+    readonly EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+    readonly NAME_REGEX = /^[a-zA-Z]{1,15}$/
 
+    readonly MAX_EMPLOYEE_AGE = 60;
+    readonly MIN_EMPLOYEE_AGE = 18;
+    
     required = (fieldValue: string) => {
         if (!fieldValue?.length) {
             return true;
@@ -26,14 +29,14 @@ export default class Validators {
     }
 
     email = (fieldValue: string) => {
-        if (!this.emailRegex.test(fieldValue)) {
+        if (!this.EMAIL_REGEX.test(fieldValue)) {
             return true;
         }
         return false;
     }
 
     password = (fieldValue: string) => {
-        if (!this.passwordRegex.test(fieldValue)) {
+        if (!this.PASSWORD_REGEX.test(fieldValue)) {
             return true;
         }
         return null;

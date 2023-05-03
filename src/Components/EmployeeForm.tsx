@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { InputDate } from "../FormFields/InputDate";
 import { InputText } from "../FormFields/InputText";
 import InputTextarea from "../FormFields/InputTextarea";
@@ -6,6 +6,7 @@ import SelectInput from "../FormFields/SelectInput";
 import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../utils/DropdownData";
 import empForm from "../utils/EmployeeForm.model";
 import Validators from "../utils/Validators";
+import { msToYears } from "../utils/utility";
 
 export default function EmployeeForm(props: any) {
 
@@ -15,7 +16,7 @@ export default function EmployeeForm(props: any) {
     const designationList = DESIGNATION;
     const techStackList = TECH_STACK;
     const locationTypeList = LOCATION_TYPE;
-    const validators = new Validators()
+    const validators = useMemo(() => new Validators(), []);
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -94,8 +95,6 @@ export default function EmployeeForm(props: any) {
     }
 
     function handleEdit(data: empForm) {
-        console.log('called');
-        
         if (isEditActive) {
             setFirstName(data?.firstName);
             setLastName(data?.lastName);
@@ -110,7 +109,7 @@ export default function EmployeeForm(props: any) {
     }
 
     function validateFirstName(): void {
-        if (!validators.nameRegex.test(firstName)) {
+        if (!validators.NAME_REGEX.test(firstName)) {
             setError((prevData: any) => {
                 return { ...prevData, firstName: 'Invalid First Name' }
             });
@@ -121,7 +120,7 @@ export default function EmployeeForm(props: any) {
         }
     }
     function validateLastName(): void {
-        if (!validators.nameRegex.test(lastName)) {
+        if (!validators.NAME_REGEX.test(lastName)) {
             setError((prevData: any) => {
                 return { ...prevData, lastName: "Invalid Last Name" }
             });
@@ -147,9 +146,15 @@ export default function EmployeeForm(props: any) {
         }
     }
     function validateDate(): void {
+        const difference = msToYears(+new Date - +new Date(date));
         if (!date) {
             setError((prevData: any) => {
                 return { ...prevData, date: 'Date is required' }
+            });
+        }
+        else if (difference && (difference < validators.MIN_EMPLOYEE_AGE || difference > validators.MAX_EMPLOYEE_AGE)) {
+            setError((prevData: any) => {
+                return { ...prevData, date: 'Invalid date of birth' }
             });
         } else {
             setError((prevData: any) => {
