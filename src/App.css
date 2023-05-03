@@ -20,9 +20,6 @@ body {
 
 .employee-form {
   padding: 10px;
-  /* min-width: 45%; */
-  border: 2px solid rgb(197, 197, 197);
-  border-radius: 20px;
 }
 
 .form {
@@ -84,6 +81,15 @@ body {
   color: white;
 }
 
+.submit button[type="button"]:not(.reset-btn) {
+  border: none;
+  background-color: rgb(255, 165, 124);
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
 .reset-btn {
   border: none;
   background-color: rgb(202, 128, 255);
@@ -115,12 +121,17 @@ body {
   grid-column: span 2;
 }
 
+.employee-list-container {
+  padding: 20px 15%;
+  border: 2px solid red;
+  height: 100vh;
+}
+
 .employee-list {
   padding: 10px;
-  width: 50%;
+  width: auto;
   border: 2px solid rgb(197, 197, 197);
   border-radius: 20px;
-
 }
 
 table {
@@ -154,42 +165,6 @@ table {
   background-color: rgb(255, 127, 127);
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.fs-10 {
-  font-size: 10px;
-}
-
-.fs-12 {
-  font-size: 12px;
-}
-
-.fs-14 {
-  font-size: 14px;
-}
-
-.d-flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.gap-20 {
-  gap: 20px;
-}
-
 input[type="checkbox"] {
   margin-right: 10px;
-}
-
-.input-invalid {
-  border: 2px solid rgb(255, 60, 60) !important;
-}
-
-.error-msg {
-  color: rgb(255, 60, 60) !important;
 }

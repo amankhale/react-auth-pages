@@ -1,8 +1,18 @@
 import { useState } from "react";
 import "./App.css";
-import EmployeeList from "./Components/EmployeeList";
+import "./styles/form.css";
+import "./styles/utility.css";
+import EmployeeList from "./Employee/Pages/EmployeeList";
 import empForm from "./utils/EmployeeForm.model";
-import EmployeeForm from "./Components/EmployeeForm";
+import EmployeeForm from "./Employee/Pages/EmployeeForm";
+import {
+  Navigate,
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
+import EmployeeLayout from "./layouts/EmployeeLayout";
 
 export default function App() {
   const [isEditActive, setEditActive] = useState(false);
@@ -35,19 +45,34 @@ export default function App() {
     });
   }
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route index element={<Navigate to="/employee/list" />}></Route>
+        <Route path="employee" element={<EmployeeLayout />}>
+          <Route index element={<Navigate to="/employee/list" />}></Route>
+          <Route path="list" element={<EmployeeList />}></Route>
+          <Route path="add" element={<EmployeeForm />}></Route>
+        </Route>
+      </Route>
+    )
+  );
+
   return (
-    <div className="container">
-      <EmployeeForm
-        handleSubmit={handleSubmit}
-        isEditActive={isEditActive}
-        setEditActive={setEditActive}
-        editData={editData}
-      ></EmployeeForm>
-      <EmployeeList
-        empList={empList}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
-      ></EmployeeList>
-    </div>
+    <RouterProvider router={router} />
+
+    // <div className="container">
+    //   <EmployeeForm
+    //     handleSubmit={handleSubmit}
+    //     isEditActive={isEditActive}
+    //     setEditActive={setEditActive}
+    //     editData={editData}
+    //   ></EmployeeForm>
+    //   <EmployeeList
+    //     empList={empList}
+    //     handleDelete={handleDelete}
+    //     handleEdit={handleEdit}
+    //   ></EmployeeList>
+    // </div>
   );
 }

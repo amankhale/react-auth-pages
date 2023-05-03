@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
-import { InputDate } from "../FormFields/InputDate";
-import { InputText } from "../FormFields/InputText";
-import InputTextarea from "../FormFields/InputTextarea";
-import SelectInput from "../FormFields/SelectInput";
-import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../utils/DropdownData";
-import Employee from "../utils/EmployeeForm.model";
-import Validators from "../utils/Validators";
-import { msToYears } from "../utils/utility";
+import { InputDate } from "../../FormFields/InputDate";
+import { InputText } from "../../FormFields/InputText";
+import InputTextarea from "../../FormFields/InputTextarea";
+import SelectInput from "../../FormFields/SelectInput";
+import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../../utils/DropdownData";
+import Employee from "../../utils/EmployeeForm.model";
+import Validators from "../../utils/Validators";
+import { msToYears } from "../../utils/utility";
+import { Link } from "react-router-dom";
 
 export default function EmployeeForm(props: any) {
 
@@ -190,15 +191,15 @@ export default function EmployeeForm(props: any) {
         <div className="employee-form">
             <h2>Employee form</h2>
             <form className='form' onSubmit={submit}>
-                <InputText value={firstName} error={isFormSubmitted ? error.firstName : ''} setValue={setFirstName} label="First Name" placeholder="Enter your first name"></InputText>
-                <InputText value={lastName} error={isFormSubmitted ? error.lastName : ''} setValue={setLastName} label="Last Name" placeholder="Enter your last name"></InputText>
-                <InputText value={email} error={isFormSubmitted ? error.email : ''} setValue={setEmail} label="Email" placeholder="Enter your email"></InputText>
-                <InputDate value={date} error={isFormSubmitted ? error.date : ''} setValue={setDate} label="Date of Birth"></InputDate>
-                <SelectInput list={graduationList} value={education} setValue={setEducation} label="Select highest education"></SelectInput>
-                <SelectInput list={designationList} value={designation} setValue={setDesignation} label="Select your designation"></SelectInput>
+                <InputText value={firstName} error={isFormSubmitted ? error.firstName : ''} setValue={setFirstName} label="First Name*" placeholder="Enter your first name"></InputText>
+                <InputText value={lastName} error={isFormSubmitted ? error.lastName : ''} setValue={setLastName} label="Last Name*" placeholder="Enter your last name"></InputText>
+                <InputText value={email} error={isFormSubmitted ? error.email : ''} setValue={setEmail} label="Email*" placeholder="Enter your email"></InputText>
+                <InputDate value={date} error={isFormSubmitted ? error.date : ''} setValue={setDate} label="Date of Birth*"></InputDate>
+                <SelectInput list={graduationList} value={education} setValue={setEducation} label="Select highest education*"></SelectInput>
+                <SelectInput list={designationList} value={designation} setValue={setDesignation} label="Select your designation*"></SelectInput>
 
                 <div className="form-field">
-                    <label className="fs-12">Select your tech stack</label>
+                    <label className="fs-12">Select your tech stack*</label>
                     <div className="d-flex gap-20">
                         {techStackList.map((x: any) =>
                             <label className="cursor-pointer fs-14" htmlFor={x.value} key={x.id}>
@@ -210,7 +211,7 @@ export default function EmployeeForm(props: any) {
                 </div>
 
                 <div className="form-field">
-                    <label className='fs-12'>Select your location</label>
+                    <label className='fs-12'>Select your location*</label>
                     <div className='d-flex gap-20'>
                         {locationTypeList.map((x: any) =>
                             <label key={x.id} className="cursor-pointer multiselect fs-14" htmlFor={x.value}>
@@ -221,9 +222,12 @@ export default function EmployeeForm(props: any) {
                     {(error.location && isFormSubmitted) && <span className="fs-10 error-msg">{error.location}</span>}
                 </div>
 
-                <InputTextarea value={remarks} setValue={setRemarks} label="Any remarks?" placeholder="Remarks" cols={30} rows={5}></InputTextarea>
+                <InputTextarea value={remarks} setValue={setRemarks} label="Any remarks? (optional)" placeholder="Remarks" cols={30} rows={5}></InputTextarea>
 
                 <div className="form-field submit">
+                    <Link to="/employee/list">
+                        <button type="button">Back</button>
+                    </Link>
                     <button type="submit">Submit</button>
                     {isEditActive ? <button onClick={handleReset} className='reset-btn' type='button'>Reset</button> : ''}
                 </div>
