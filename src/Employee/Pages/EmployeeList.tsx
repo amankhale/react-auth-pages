@@ -2,11 +2,12 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteEmployee } from "../EmployeeSlice/employee.slice";
+import { getEmployeeData } from "../EmployeeSlice/employee.slice";
 
 export default function EmployeeList() {
   // const { empList, handleDelete, handleEdit } = props;
 
-  const { empList } = useSelector((state: any) => state.employee);
+  const { empList } = useSelector(getEmployeeData);
   const dispatch = useDispatch();
 
   function handleDelete(index: number) {

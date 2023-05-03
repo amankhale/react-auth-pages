@@ -8,10 +8,14 @@ import Employee from "../../utils/EmployeeForm.model";
 import Validators from "../../utils/Validators";
 import { msToYears } from "../../utils/utility";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addEmployee, getEmployeeData } from "../EmployeeSlice/employee.slice";
 
-export default function EmployeeForm(props: any) {
+export default function EmployeeForm() {
 
-    const { handleSubmit, isEditActive, setEditActive, editData } = props;
+    const dispatch = useDispatch();
+
+    const { editEmployeeData } = useSelector(getEmployeeData);
 
     const graduationList = GRADUATION;
     const designationList = DESIGNATION;
@@ -51,8 +55,8 @@ export default function EmployeeForm(props: any) {
     }, [location]);
 
     useEffect(() => {
-        handleEdit(editData);
-    }, [isEditActive]);
+        handleEdit(editEmployeeData);
+    }, [editEmployeeData]);
 
     function handleTechStack(value: string) {
         setTechstack((prevData: any) => {
@@ -75,8 +79,8 @@ export default function EmployeeForm(props: any) {
             return;
         }
         let payload: Employee = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
+        dispatch(addEmployee(payload));
         // console.log(payload);
-        handleSubmit(payload);
         handleReset();
     }
 
@@ -92,11 +96,10 @@ export default function EmployeeForm(props: any) {
         setRemarks('');
         setFormSubmitted(false);
         setError({});
-        setEditActive(false);
     }
 
     function handleEdit(data: Employee) {
-        if (isEditActive) {
+        if (editEmployeeData) {
             setFirstName(data?.firstName);
             setLastName(data?.lastName);
             setEmail(data?.email);
@@ -229,7 +232,7 @@ export default function EmployeeForm(props: any) {
                         <button type="button">Back</button>
                     </Link>
                     <button type="submit">Submit</button>
-                    {isEditActive ? <button onClick={handleReset} className='reset-btn' type='button'>Reset</button> : ''}
+                    {editEmployeeData ? <button onClick={handleReset} className='reset-btn' type='button'>Reset</button> : ''}
                 </div>
             </form>
         </div>
