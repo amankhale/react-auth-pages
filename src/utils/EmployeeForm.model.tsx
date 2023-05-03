@@ -1,4 +1,4 @@
-export default interface empForm {
+export default interface Employee {
     firstName: string,
     lastName: string,
     email: string,

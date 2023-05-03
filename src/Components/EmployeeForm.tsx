@@ -4,7 +4,7 @@ import { InputText } from "../FormFields/InputText";
 import InputTextarea from "../FormFields/InputTextarea";
 import SelectInput from "../FormFields/SelectInput";
 import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../utils/DropdownData";
-import empForm from "../utils/EmployeeForm.model";
+import Employee from "../utils/EmployeeForm.model";
 import Validators from "../utils/Validators";
 import { msToYears } from "../utils/utility";
 
@@ -28,7 +28,7 @@ export default function EmployeeForm(props: any) {
     const [location, setLocation] = useState('');
     const [remarks, setRemarks] = useState('');
     const [isFormSubmitted, setFormSubmitted] = useState(false);
-    const [error, setError]: [Partial<empForm>, any] = useState({});
+    const [error, setError]: [Partial<Employee>, any] = useState({});
 
     useEffect(() => {
         validateFirstName();
@@ -73,7 +73,7 @@ export default function EmployeeForm(props: any) {
         if (isError) {
             return;
         }
-        let payload: empForm = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
+        let payload: Employee = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
         // console.log(payload);
         handleSubmit(payload);
         handleReset();
@@ -94,7 +94,7 @@ export default function EmployeeForm(props: any) {
         setEditActive(false);
     }
 
-    function handleEdit(data: empForm) {
+    function handleEdit(data: Employee) {
         if (isEditActive) {
             setFirstName(data?.firstName);
             setLastName(data?.lastName);
@@ -132,15 +132,15 @@ export default function EmployeeForm(props: any) {
     }
     function validateEmail(): void {
         if (validators.required(email)) {
-            setError((prevData: Partial<empForm>) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, email: 'Email is required' }
             });
         } else if (validators.email(email)) {
-            setError((prevData: Partial<empForm>) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, email: "Invalid Email" }
             });
         } else {
-            setError((prevData: Partial<empForm>) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, email: null }
             });
         }

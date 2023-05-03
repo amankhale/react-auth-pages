@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import './App.css';
-import EmployeeList from './Components/EmployeeList';
-import empForm from './utils/EmployeeForm.model';
-import EmployeeForm from './Components/EmployeeForm';
+import { useState } from "react";
+import "./App.css";
+import EmployeeList from "./Components/EmployeeList";
+import empForm from "./utils/EmployeeForm.model";
+import EmployeeForm from "./Components/EmployeeForm";
 
 export default function App() {
-
   const [isEditActive, setEditActive] = useState(false);
   const [empList, setEmpList]: [any[], any] = useState([]);
   const [editData, setEditData] = useState({});
@@ -38,8 +37,17 @@ export default function App() {
 
   return (
     <div className="container">
-      <EmployeeForm handleSubmit={handleSubmit} isEditActive={isEditActive} setEditActive={setEditActive} editData={editData}></EmployeeForm>
-      <EmployeeList empList={empList} handleDelete={handleDelete} handleEdit={handleEdit}></EmployeeList>
+      <EmployeeForm
+        handleSubmit={handleSubmit}
+        isEditActive={isEditActive}
+        setEditActive={setEditActive}
+        editData={editData}
+      ></EmployeeForm>
+      <EmployeeList
+        empList={empList}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      ></EmployeeList>
     </div>
-  )
+  );
 }
