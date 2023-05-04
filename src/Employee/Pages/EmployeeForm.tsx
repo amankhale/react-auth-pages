@@ -7,15 +7,16 @@ import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../../utils/
 import Employee from "../../utils/EmployeeForm.model";
 import Validators from "../../utils/Validators";
 import { msToYears } from "../../utils/utility";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmployee, getEmployeeData } from "../EmployeeSlice/employee.slice";
+import { addEmployee, getEmployeeData } from "../slice/employee.slice";
 
 export default function EmployeeForm() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const { editEmployeeData } = useSelector(getEmployeeData);
+    const { editEmployeeData }: { editEmployeeData: Employee } = useSelector(getEmployeeData);
 
     const graduationList = GRADUATION;
     const designationList = DESIGNATION;
@@ -61,7 +62,7 @@ export default function EmployeeForm() {
     function handleTechStack(value: string) {
         setTechstack((prevData: any) => {
             let new_data: any[] = [...prevData];
-            let index = new_data.indexOf(value);
+            const index = new_data.indexOf(value);
             if (index == -1) {
                 new_data.push(value);
             } else {
@@ -74,12 +75,13 @@ export default function EmployeeForm() {
     function submit(event: any) {
         event.preventDefault();
         setFormSubmitted(true);
-        let isError = Object.values(error).filter((x: any) => x).length > 0;
+        const isError = Object.values(error).filter((x: any) => x).length > 0;
         if (isError) {
             return;
         }
-        let payload: Employee = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
+        const payload: Employee = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
         dispatch(addEmployee(payload));
+        navigate("/employee/list");
         // console.log(payload);
         handleReset();
     }
@@ -99,7 +101,7 @@ export default function EmployeeForm() {
     }
 
     function handleEdit(data: Employee) {
-        if (editEmployeeData) {
+        if (data?.firstName) {
             setFirstName(data?.firstName);
             setLastName(data?.lastName);
             setEmail(data?.email);
@@ -232,7 +234,7 @@ export default function EmployeeForm() {
                         <button type="button">Back</button>
                     </Link>
                     <button type="submit">Submit</button>
-                    {editEmployeeData ? <button onClick={handleReset} className='reset-btn' type='button'>Reset</button> : ''}
+                    {editEmployeeData?.firstName ? <button onClick={handleReset} className='reset-btn' type='button'>Reset</button> : ''}
                 </div>
             </form>
         </div>

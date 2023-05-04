@@ -4,11 +4,7 @@ import Employee from "../../utils/EmployeeForm.model";
 export const employeeSlice = createSlice({
   name: "employee",
   initialState: {
-    empList: [
-      { firstName: "Akshay", lastName: "Kumar", designation: "SSE" },
-      { firstName: "Ajay", lastName: "Devgan", designation: "TL" },
-      { firstName: "Aman", lastName: "Khale", designation: "SSE" },
-    ],
+    empList: new Array<Employee>(),
     editEmployeeData: {},
   },
   reducers: {
@@ -30,5 +26,10 @@ export const employeeSlice = createSlice({
   },
 });
 
-export const { deleteEmployee, addEmployee } = employeeSlice.actions;
+export const {
+  deleteEmployee,
+  addEmployee,
+  setEditEmployeeData,
+  resetEditEmployeeData,
+} = employeeSlice.actions;
 export const getEmployeeData = (state: any) => state.employee;
