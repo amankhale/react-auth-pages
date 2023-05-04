@@ -12,7 +12,15 @@ export const employeeSlice = createSlice({
       state.empList.splice(action.payload, 1);
     },
     addEmployee: (state, action: { payload: Employee; type: string }) => {
-      state.empList.push(action.payload);
+      const data: Employee = action.payload;
+      
+      const index = state.empList.findIndex((x: Employee) => x.id == data.id);
+      
+      if (index == -1) {
+        state.empList.push(data);
+      } else {
+        state.empList.splice(index, 1, data);
+      }
     },
     setEditEmployeeData: (
       state,

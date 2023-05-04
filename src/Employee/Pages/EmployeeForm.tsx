@@ -24,13 +24,14 @@ export default function EmployeeForm() {
     const locationTypeList = LOCATION_TYPE;
     const validators = useMemo(() => new Validators(), []);
 
+    const [id, setEmployeeId] = useState(crypto.randomUUID().toString());
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [date, setDate] = useState('');
     const [education, setEducation] = useState('10th');
     const [designation, setDesignation] = useState('SE');
-    const [techStack, setTechstack]: [any[], any] = useState([]);
+    const [techStack, setTechstack]: [string[], any] = useState([]);
     const [location, setLocation] = useState('');
     const [remarks, setRemarks] = useState('');
     const [isFormSubmitted, setFormSubmitted] = useState(false);
@@ -60,8 +61,8 @@ export default function EmployeeForm() {
     }, [editEmployeeData]);
 
     function handleTechStack(value: string) {
-        setTechstack((prevData: any) => {
-            let new_data: any[] = [...prevData];
+        setTechstack((prevData: string[]) => {
+            let new_data = [...prevData];
             const index = new_data.indexOf(value);
             if (index == -1) {
                 new_data.push(value);
@@ -79,7 +80,7 @@ export default function EmployeeForm() {
         if (isError) {
             return;
         }
-        const payload: Employee = { firstName, lastName, email, date, education, designation, techStack, location, remarks };
+        const payload: Employee = {id, firstName, lastName, email, date, education, designation, techStack, location, remarks };
         dispatch(addEmployee(payload));
         navigate("/employee/list");
         // console.log(payload);
@@ -111,27 +112,28 @@ export default function EmployeeForm() {
             setTechstack(data?.techStack);
             setLocation(data?.location);
             setRemarks(data?.remarks);
+            setEmployeeId(data?.id);
         }
     }
 
     function validateFirstName(): void {
         if (!validators.NAME_REGEX.test(firstName)) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, firstName: 'Invalid First Name' }
             });
         } else {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, firstName: null }
             });
         }
     }
     function validateLastName(): void {
         if (!validators.NAME_REGEX.test(lastName)) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, lastName: "Invalid Last Name" }
             });
         } else {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, lastName: null }
             });
         }
@@ -154,38 +156,38 @@ export default function EmployeeForm() {
     function validateDate(): void {
         const difference = msToYears(+new Date - +new Date(date));
         if (!date) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, date: 'Date is required' }
             });
         }
         else if (difference && (difference < validators.MIN_EMPLOYEE_AGE || difference > validators.MAX_EMPLOYEE_AGE)) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, date: 'Invalid date of birth' }
             });
         } else {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, date: null }
             });
         }
     }
     function validateTechStack(): void {
         if (!techStack.length) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, techStack: 'Select atleast one option' }
             });
         } else {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, techStack: null }
             });
         }
     }
     function validateLocation(): void {
         if (!location) {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, location: 'Location is required' }
             });
         } else {
-            setError((prevData: any) => {
+            setError((prevData: Partial<Employee>) => {
                 return { ...prevData, location: null }
             });
         }

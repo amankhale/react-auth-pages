@@ -51,8 +51,8 @@ export default function EmployeeList() {
               </tr>
             </thead>
             <tbody>
-              {empList.map((data: any, index: number) => (
-                <tr key={index}>
+              {empList.map((data: Employee, index: number) => (
+                <tr key={data.id}>
                   <td>{index + 1}.</td>
                   <td>
                     {data?.firstName} {data?.lastName}
