@@ -11,11 +11,10 @@ import Employee from "../../utils/EmployeeForm.model";
 import { useEffect } from "react";
 
 export default function EmployeeList() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(resetEditEmployeeData());
   }, []);
 

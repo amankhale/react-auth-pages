@@ -1,21 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import InputDate from "../../FormFields/InputDate";
 import InputText from "../../FormFields/InputText";
 import InputTextarea from "../../FormFields/InputTextarea";
+import InputRadio from "../../FormFields/InputRadio";
+import InputCheckbox from "../../FormFields/InputCheckbox";
 import SelectInput from "../../FormFields/SelectInput";
-import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE, Assets } from "../../utils/DropdownData";
+import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../../utils/DropdownData";
 import Employee from "../../utils/EmployeeForm.model";
 import Validators from "../../utils/Validators";
 import { msToYears } from "../../utils/utility";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { addEmployee, getEmployeeData } from "../slice/employee.slice";
 
 export default function EmployeeForm() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { editEmployeeData }: { editEmployeeData: Employee } = useSelector(getEmployeeData);
 
     const graduationList = GRADUATION;
@@ -35,7 +37,7 @@ export default function EmployeeForm() {
     const [location, setLocation] = useState('');
     const [remarks, setRemarks] = useState('');
     const [isFormSubmitted, setFormSubmitted] = useState(false);
-    const [error, setError]: [Partial<Employee>, any] = useState({});
+    const [error, setError]: [any, any] = useState({});
 
     useEffect(() => {
         validateFirstName();
@@ -204,30 +206,9 @@ export default function EmployeeForm() {
                 <InputDate value={date} error={isFormSubmitted ? error.date : ''} setValue={setDate} label="Date of Birth*"></InputDate>
                 <SelectInput list={graduationList} value={education} setValue={setEducation} label="Select highest education*"></SelectInput>
                 <SelectInput list={designationList} value={designation} setValue={setDesignation} label="Select your designation*"></SelectInput>
+                <InputRadio list={techStackList} value={techStack} setValue={handleTechStack} error={isFormSubmitted ? error.techStack : ''} label="Select your Techstack*"></InputRadio>
 
-                <div className="form-field">
-                    <label className="fs-12">Select your tech stack*</label>
-                    <div className="d-flex gap-20">
-                        {techStackList.map((x: Assets) =>
-                            <label className="cursor-pointer fs-14" htmlFor={x.value} key={x.id}>
-                                <input onChange={(e: any) => handleTechStack(e.target.value)} checked={techStack?.includes(x.value)} type="checkbox" value={x.value} id={x.value} />{x.value}
-                            </label>
-                        )}
-                    </div>
-                    {(error.techStack && isFormSubmitted) && <span className="fs-10 error-msg">{error.techStack}</span>}
-                </div>
-
-                <div className="form-field">
-                    <label className='fs-12'>Select your location*</label>
-                    <div className='d-flex gap-20'>
-                        {locationTypeList.map((x: Assets) =>
-                            <label key={x.id} className="cursor-pointer multiselect fs-14" htmlFor={x.value}>
-                                <input onChange={() => setLocation(x.value)} checked={location == x.value} type="radio" value={x.value} id={x.value} />{x.value}
-                            </label>
-                        )}
-                    </div>
-                    {(error.location && isFormSubmitted) && <span className="fs-10 error-msg">{error.location}</span>}
-                </div>
+                <InputCheckbox list={locationTypeList} value={location} setValue={setLocation} error={isFormSubmitted ? error.location : ''} label="Select your preferred location*"></InputCheckbox>
 
                 <InputTextarea value={remarks} setValue={setRemarks} label="Any remarks? (optional)" placeholder="Remarks" cols={30} rows={5}></InputTextarea>
 

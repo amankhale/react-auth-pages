@@ -3,6 +3,6 @@ import { employeeSlice } from "../Employee/slice/employee.slice";
 
 export default configureStore({
   reducer: {
-    employee: employeeSlice.reducer
+    employee: employeeSlice.reducer,
   },
 });

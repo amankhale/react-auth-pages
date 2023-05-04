@@ -1,9 +1,9 @@
-interface InputTextProp{
-  label: string,
-  value: string,
-  setValue: any,
-  placeholder: string,
-  error: string | undefined
+interface InputTextProp {
+  label: string;
+  value: string;
+  setValue: any;
+  placeholder: string;
+  error: string | undefined;
 }
 
 export default function InputText(props: InputTextProp) {
