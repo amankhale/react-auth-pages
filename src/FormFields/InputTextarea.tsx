@@ -1,4 +1,13 @@
-export default function InputTextarea(props: any) {
+interface InputTextareaProp{
+    value: string,
+    setValue: any,
+    label: string,
+    placeholder: string,
+    cols: number,
+    rows: number
+}
+
+export default function InputTextarea(props: InputTextareaProp) {
 
     const { value, setValue, label, placeholder, cols, rows } = props;
 

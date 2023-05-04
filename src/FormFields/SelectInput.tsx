@@ -1,4 +1,13 @@
-export default function SelectInput(props: any) {
+import { Assets } from "../utils/DropdownData";
+
+interface SelectInputProp{
+    list: Assets[],
+    value: string,
+    setValue: any,
+    label: string
+}
+
+export default function SelectInput(props: SelectInputProp) {
 
     const { list, value, setValue, label } = props;
 

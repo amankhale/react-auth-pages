@@ -1,4 +1,11 @@
-export function InputDate(props: any) {
+interface InputDateProp {
+    value: string,
+    setValue: any,
+    label: string,
+    error: string | undefined
+}
+
+export default function InputDate(props: InputDateProp) {
 
     const { value, setValue, label, error } = props;
 

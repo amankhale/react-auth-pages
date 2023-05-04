@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { InputDate } from "../../FormFields/InputDate";
-import { InputText } from "../../FormFields/InputText";
+import InputDate from "../../FormFields/InputDate";
+import InputText from "../../FormFields/InputText";
 import InputTextarea from "../../FormFields/InputTextarea";
 import SelectInput from "../../FormFields/SelectInput";
-import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE } from "../../utils/DropdownData";
+import { GRADUATION, DESIGNATION, TECH_STACK, LOCATION_TYPE, Assets } from "../../utils/DropdownData";
 import Employee from "../../utils/EmployeeForm.model";
 import Validators from "../../utils/Validators";
 import { msToYears } from "../../utils/utility";
@@ -208,7 +208,7 @@ export default function EmployeeForm() {
                 <div className="form-field">
                     <label className="fs-12">Select your tech stack*</label>
                     <div className="d-flex gap-20">
-                        {techStackList.map((x: any) =>
+                        {techStackList.map((x: Assets) =>
                             <label className="cursor-pointer fs-14" htmlFor={x.value} key={x.id}>
                                 <input onChange={(e: any) => handleTechStack(e.target.value)} checked={techStack?.includes(x.value)} type="checkbox" value={x.value} id={x.value} />{x.value}
                             </label>
@@ -220,7 +220,7 @@ export default function EmployeeForm() {
                 <div className="form-field">
                     <label className='fs-12'>Select your location*</label>
                     <div className='d-flex gap-20'>
-                        {locationTypeList.map((x: any) =>
+                        {locationTypeList.map((x: Assets) =>
                             <label key={x.id} className="cursor-pointer multiselect fs-14" htmlFor={x.value}>
                                 <input onChange={() => setLocation(x.value)} checked={location == x.value} type="radio" value={x.value} id={x.value} />{x.value}
                             </label>

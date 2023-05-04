@@ -1,4 +1,12 @@
-export function InputText(props: any) {
+interface InputTextProp{
+  label: string,
+  value: string,
+  setValue: any,
+  placeholder: string,
+  error: string | undefined
+}
+
+export default function InputText(props: InputTextProp) {
   const { label, value, setValue, placeholder, error } = props;
   return (
     <div className="form-field d-flex flex-column">
