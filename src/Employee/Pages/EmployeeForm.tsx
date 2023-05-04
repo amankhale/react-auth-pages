@@ -277,15 +277,6 @@ export default function EmployeeForm() {
             <button type="button">Back</button>
           </Link>
           <button type="submit">Submit</button>
-          {employeeId ? (
-            <Link to={EmployeeRoute.Add}>
-              <button className="reset-btn" type="button">
-                Add New
-              </button>
-            </Link>
-          ) : (
-            ""
-          )}
         </div>
       </form>
     </div>
