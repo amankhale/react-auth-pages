@@ -8,5 +8,5 @@ export default interface Employee {
   designation: string;
   techStack: string[];
   location: string;
-  remarks: string;
+  remarks?: string;
 }

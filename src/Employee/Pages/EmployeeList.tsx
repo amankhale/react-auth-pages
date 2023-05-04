@@ -1,32 +1,22 @@
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  deleteEmployee,
-  resetEditEmployeeData,
-  setEditEmployeeData,
-} from "../slice/employee.slice";
+import { deleteEmployee } from "../slice/employee.slice";
 import { getEmployeeData } from "../slice/employee.slice";
 import Employee from "../../utils/EmployeeForm.model";
-import { useEffect } from "react";
+import { EmployeeRoute } from "../../routes";
 
 export default function EmployeeList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(resetEditEmployeeData());
-  }, []);
-
   const { empList } = useSelector(getEmployeeData);
 
   function handleDelete(index: number) {
     dispatch(deleteEmployee(index));
   }
 
-  function handleEdit(data: Employee) {
-    dispatch(setEditEmployeeData(data));
-    navigate("/employee/add");
+  function handleEdit(employeeId: string) {
+    navigate(`${EmployeeRoute.Edit}${employeeId}`);
   }
 
   return (
@@ -60,7 +50,7 @@ export default function EmployeeList() {
                   <td>{data?.designation}</td>
                   <td className="action-btn">
                     <button
-                      onClick={() => handleEdit(data)}
+                      onClick={() => handleEdit(data.id)}
                       className="edit-btn"
                     >
                       Edit

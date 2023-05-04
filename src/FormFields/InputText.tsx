@@ -1,4 +1,5 @@
 interface InputTextProp {
+  name: string;
   label: string;
   value: string;
   setValue: any;
@@ -7,13 +8,14 @@ interface InputTextProp {
 }
 
 export default function InputText(props: InputTextProp) {
-  const { label, value, setValue, placeholder, error } = props;
+  const { label, value, setValue, placeholder, error, name } = props;
   return (
     <div className="form-field d-flex flex-column">
       <label className="fs-12">{label}</label>
       <input
+        name={name}
         className={error ? "input-invalid" : ""}
-        onInput={(e: any) => setValue(e.target.value)}
+        onInput={(e: any) => setValue(e)}
         value={value}
         type="text"
         placeholder={placeholder}

@@ -1,4 +1,5 @@
 interface InputTextareaProp {
+  name: string;
   value: string;
   setValue: any;
   label: string;
@@ -8,16 +9,15 @@ interface InputTextareaProp {
 }
 
 export default function InputTextarea(props: InputTextareaProp) {
-  const { value, setValue, label, placeholder, cols, rows } = props;
+  const { value, setValue, label, placeholder, cols, rows, name } = props;
 
   return (
     <div className="form-field remarks d-flex flex-column">
       <label className="fs-12">{label}</label>
       <textarea
-        onInput={(e: any) => setValue(e.target.value)}
+        onInput={(e: any) => setValue(e)}
         value={value}
-        name=""
-        id=""
+        name={name}
         cols={cols}
         rows={rows}
         placeholder={placeholder}

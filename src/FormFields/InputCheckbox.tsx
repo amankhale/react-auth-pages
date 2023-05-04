@@ -1,30 +1,28 @@
 import { Assets } from "../utils/DropdownData";
 
-interface InputCheckboxProps {
+interface InputCheckBoxProp {
+  name: string;
   list: Assets[];
-  value: string;
+  value: string[];
   setValue: any;
   error: string | undefined;
   label: string;
 }
 
-function InputCheckbox(props: InputCheckboxProps) {
-  const { list, value, setValue, error, label } = props;
+function InputCheckBox(props: InputCheckBoxProp) {
+  const { list, value, setValue, error, label, name } = props;
 
   return (
     <div className="form-field">
       <label className="fs-12">{label}</label>
       <div className="d-flex gap-20">
         {list.map((x: Assets) => (
-          <label
-            key={x.id}
-            className="cursor-pointer multiselect fs-14"
-            htmlFor={x.value}
-          >
+          <label className="cursor-pointer fs-14" htmlFor={x.value} key={x.id}>
             <input
-              onChange={() => setValue(x.value)}
-              checked={value == x.value}
-              type="radio"
+              name={name}
+              onChange={(e: any) => setValue(e)}
+              checked={value?.includes(x.value)}
+              type="checkbox"
               value={x.value}
               id={x.value}
             />
@@ -37,4 +35,4 @@ function InputCheckbox(props: InputCheckboxProps) {
   );
 }
 
-export default InputCheckbox;
+export default InputCheckBox;

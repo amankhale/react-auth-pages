@@ -1,6 +1,7 @@
 import { Assets } from "../utils/DropdownData";
 
 interface SelectInputProp {
+  name: string;
   list: Assets[];
   value: string;
   setValue: any;
@@ -8,15 +9,15 @@ interface SelectInputProp {
 }
 
 export default function SelectInput(props: SelectInputProp) {
-  const { list, value, setValue, label } = props;
+  const { list, value, setValue, label, name } = props;
 
   return (
     <div className="form-field d-flex flex-column">
       <label className="fs-12">{label}</label>
       <select
-        onChange={(e: any) => setValue(e.target.value)}
+        onChange={(e: any) => setValue(e)}
         value={value}
-        name="graduation"
+        name={name}
         placeholder="Select Highest Education"
       >
         {list.map((x: any) => (
