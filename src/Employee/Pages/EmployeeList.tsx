@@ -24,7 +24,7 @@ export default function EmployeeList() {
       <div className="employee-list">
         <div className="d-flex justify-content-between gap-20">
           <h2>Employee List</h2>
-          <Link to="/employee/add">
+          <Link to={EmployeeRoute.Add}>
             <button className="reset-btn">Add Employee</button>
           </Link>
         </div>
