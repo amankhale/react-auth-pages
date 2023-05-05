@@ -93,8 +93,11 @@ export default function EmployeeForm() {
         navigate(EmployeeRoute.Add);
       } else {
         const data = empList[index];
+        updateTitle("Edit Employee");
         setEmployee(data);
       }
+    } else {
+      updateTitle("Add Employee");
     }
   }
 
@@ -196,6 +199,10 @@ export default function EmployeeForm() {
         return { ...prevData, location: null };
       });
     }
+  }
+
+  function updateTitle(value: string): void {
+    document.title = value;
   }
 
   return (

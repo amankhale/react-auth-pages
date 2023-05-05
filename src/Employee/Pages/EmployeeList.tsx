@@ -5,6 +5,7 @@ import { deleteEmployee } from "../slice/employee.slice";
 import { getEmployeeData } from "../slice/employee.slice";
 import Employee from "../../utils/EmployeeForm.model";
 import { EmployeeRoute } from "../../routes";
+import { useEffect } from "react";
 
 export default function EmployeeList() {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export default function EmployeeList() {
   function handleEdit(employeeId: string) {
     navigate(`${EmployeeRoute.Edit}${employeeId}`);
   }
+
+  useEffect(() => {document.title = "Employee List"}, []);
 
   return (
     <div className="employee-list-container d-flex justify-content-center">
