@@ -72,7 +72,7 @@ export default function EmployeeForm() {
   function submit(event: any) {
     event.preventDefault();
     setFormSubmitted(true);
-    console.log(employee);
+    // console.log(employee);
 
     const isError = Object.values(error).filter((x: any) => x).length > 0;
     if (isError) {
