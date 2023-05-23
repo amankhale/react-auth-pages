@@ -20,9 +20,6 @@ import { EmployeeRoute } from "../../routes";
 import InputCheckbox from "../../FormFields/InputCheckbox";
 import InputRadio from "../../FormFields/InputRadio";
 
-import Web3 from "web3";
-import { EMPLOYEE_ABI, EMPLOYEE_ADDRESS } from "../../config/ganache-abi";
-
 export default function EmployeeForm() {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,9 +36,6 @@ export default function EmployeeForm() {
   const [error, setError]: [any, any] = useState({});
   const [isFormSubmitted, setFormSubmitted] = useState(false);
 
-  const [currentAccount, setCurrentAccount]: [string, any] = useState("");
-  const [employeeBlockChain, setEmployeeBlock]: [any, any] = useState();
-
   useEffect(() => {
     handleEdit(employeeId);
   }, [employeeId]);
@@ -49,18 +43,6 @@ export default function EmployeeForm() {
   useEffect(() => {
     validateEmployeeForm();
   }, [employee]);
-
-  useEffect(() => {
-    loadBlockChaindata();
-  }, []);
-
-  async function loadBlockChaindata() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
-    const accounts = await web3.eth.getAccounts();
-    const employees = new web3.eth.Contract(EMPLOYEE_ABI, EMPLOYEE_ADDRESS);
-    setCurrentAccount(accounts[0]);
-    setEmployeeBlock(employees);
-  }
 
   function handleEmployeeChange(event: any): void {
     const type = event.target.name;
@@ -101,12 +83,12 @@ export default function EmployeeForm() {
       payload["id"] = crypto.randomUUID();
     }
 
-    employeeBlockChain.methods
-      .addEmployee(payload)
-      .send({ from: currentAccount })
-      .once("receipt", (receipt: any) => {
-        console.log(receipt);
-      });
+    // employeeBlockChain.methods
+    //   .addEmployee(payload)
+    //   .send({ from: currentAccount })
+    //   .once("receipt", (receipt: any) => {
+    //     console.log(receipt);
+    //   });
 
     // dispatch(addEmployee(payload));
     // navigate(EmployeeRoute.List);

@@ -6,11 +6,10 @@ import { getEmployeeData } from "../slice/employee.slice";
 import Employee from "../../utils/EmployeeForm.model";
 import { EmployeeRoute } from "../../routes";
 import { useEffect } from "react";
-
-import Web3 from "web3";
-import { EMPLOYEE_ABI, EMPLOYEE_ADDRESS } from "../../config/ganache-abi";
+import { useEmployeeBlock } from "../../context/web3.context";
 
 export default function EmployeeList() {
+  // const  = useEmployeeBlock();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { empList } = useSelector(getEmployeeData);
@@ -18,19 +17,6 @@ export default function EmployeeList() {
   useEffect(() => {
     document.title = "Employee List";
   }, []);
-
-  useEffect(() => {
-    loadBlockChaindata();
-  }, []);
-
-  async function loadBlockChaindata() {
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
-    const employees = new web3.eth.Contract(EMPLOYEE_ABI, EMPLOYEE_ADDRESS);
-    // const employeeCount = employees.methods.employeeCount().call();
-    const data = await employees.methods.employeeList(1).call();
-    console.log(data);
-    
-  }
 
   function handleDelete(index: number) {
     dispatch(deleteEmployee(index));
