@@ -9,14 +9,15 @@ import { useEffect } from "react";
 import { useEmployeeBlock } from "../../context/web3.context";
 
 export default function EmployeeList() {
-  // const  = useEmployeeBlock();
+  const data = useEmployeeBlock();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { empList } = useSelector(getEmployeeData);
 
   useEffect(() => {
     document.title = "Employee List";
-  }, []);
+    console.log(data);
+  }, [data]);
 
   function handleDelete(index: number) {
     dispatch(deleteEmployee(index));
