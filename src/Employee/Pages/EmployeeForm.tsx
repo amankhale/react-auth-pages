@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import InputDate from "../../FormFields/InputDate";
 import InputText from "../../FormFields/InputText";
@@ -15,13 +15,16 @@ import {
 import Employee from "../../utils/EmployeeForm.model";
 import Validators from "../../utils/Validators";
 import { msToYears } from "../../utils/utility";
-import { addEmployee, getEmployeeData } from "../slice/employee.slice";
+import { getEmployeeData } from "../slice/employee.slice";
 import { EmployeeRoute } from "../../routes";
 import InputCheckbox from "../../FormFields/InputCheckbox";
 import InputRadio from "../../FormFields/InputRadio";
 
+import Web3 from "web3";
+import { EMPLOYEE_ABI, EMPLOYEE_ADDRESS } from "../../config/ganache-abi";
+
 export default function EmployeeForm() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
   const validators = useMemo(() => new Validators(), []);
   const { empList } = useSelector(getEmployeeData);
@@ -36,6 +39,9 @@ export default function EmployeeForm() {
   const [error, setError]: [any, any] = useState({});
   const [isFormSubmitted, setFormSubmitted] = useState(false);
 
+  const [currentAccount, setCurrentAccount]: [string, any] = useState("");
+  const [employeeBlockChain, setEmployeeBlock]: [any, any] = useState();
+
   useEffect(() => {
     handleEdit(employeeId);
   }, [employeeId]);
@@ -43,6 +49,18 @@ export default function EmployeeForm() {
   useEffect(() => {
     validateEmployeeForm();
   }, [employee]);
+
+  useEffect(() => {
+    loadBlockChaindata();
+  }, []);
+
+  async function loadBlockChaindata() {
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+    const accounts = await web3.eth.getAccounts();
+    const employees = new web3.eth.Contract(EMPLOYEE_ABI, EMPLOYEE_ADDRESS);
+    setCurrentAccount(accounts[0]);
+    setEmployeeBlock(employees);
+  }
 
   function handleEmployeeChange(event: any): void {
     const type = event.target.name;
@@ -69,7 +87,7 @@ export default function EmployeeForm() {
     }
   }
 
-  function submit(event: any) {
+  async function submit(event: any) {
     event.preventDefault();
     setFormSubmitted(true);
     // console.log(employee);
@@ -82,8 +100,16 @@ export default function EmployeeForm() {
     if (!employeeId) {
       payload["id"] = crypto.randomUUID();
     }
-    dispatch(addEmployee(payload));
-    navigate(EmployeeRoute.List);
+
+    employeeBlockChain.methods
+      .addEmployee(payload)
+      .send({ from: currentAccount })
+      .once("receipt", (receipt: any) => {
+        console.log(receipt);
+      });
+
+    // dispatch(addEmployee(payload));
+    // navigate(EmployeeRoute.List);
   }
 
   function handleEdit(id: string | undefined) {

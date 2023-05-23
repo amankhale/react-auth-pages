@@ -7,10 +7,30 @@ import Employee from "../../utils/EmployeeForm.model";
 import { EmployeeRoute } from "../../routes";
 import { useEffect } from "react";
 
+import Web3 from "web3";
+import { EMPLOYEE_ABI, EMPLOYEE_ADDRESS } from "../../config/ganache-abi";
+
 export default function EmployeeList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { empList } = useSelector(getEmployeeData);
+
+  useEffect(() => {
+    document.title = "Employee List";
+  }, []);
+
+  useEffect(() => {
+    loadBlockChaindata();
+  }, []);
+
+  async function loadBlockChaindata() {
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+    const employees = new web3.eth.Contract(EMPLOYEE_ABI, EMPLOYEE_ADDRESS);
+    // const employeeCount = employees.methods.employeeCount().call();
+    const data = await employees.methods.employeeList(1).call();
+    console.log(data);
+    
+  }
 
   function handleDelete(index: number) {
     dispatch(deleteEmployee(index));
@@ -19,8 +39,6 @@ export default function EmployeeList() {
   function handleEdit(employeeId: string) {
     navigate(`${EmployeeRoute.Edit}${employeeId}`);
   }
-
-  useEffect(() => {document.title = "Employee List"}, []);
 
   return (
     <div className="employee-list-container d-flex justify-content-center">
