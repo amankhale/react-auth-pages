@@ -19,10 +19,12 @@ import { getEmployeeData } from "../slice/employee.slice";
 import { EmployeeRoute } from "../../routes";
 import InputCheckbox from "../../FormFields/InputCheckbox";
 import InputRadio from "../../FormFields/InputRadio";
+import { useEmployeeBlock } from "../../context/web3.context";
 
 export default function EmployeeForm() {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
+  const employeeBlockChain: any = useEmployeeBlock();
   const validators = useMemo(() => new Validators(), []);
   const { empList } = useSelector(getEmployeeData);
   const { employeeId } = useParams();
@@ -82,6 +84,13 @@ export default function EmployeeForm() {
     if (!employeeId) {
       payload["id"] = crypto.randomUUID();
     }
+
+    employeeBlockChain.employeeBlock.methods
+      .addEmployee(payload)
+      .send({ from: employeeBlockChain.currentAccount })
+      .once("receipt", (receipt: any) => {
+        console.log(receipt);
+      });
 
     // employeeBlockChain.methods
     //   .addEmployee(payload)

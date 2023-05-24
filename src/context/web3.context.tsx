@@ -21,7 +21,7 @@ export function Web3Provider({ children }: { children: any }) {
     const accounts = await web3.eth.getAccounts();
     const employees = new web3.eth.Contract(EMPLOYEE_ABI, EMPLOYEE_ADDRESS);
     setEmployeeBlock(employees);
-    setCurrentAccount(accounts);
+    setCurrentAccount(accounts[0]);
     // const employeeCount = employees.methods.employeeCount().call();
     // const data = await employees.methods.employeeList(1).call();
   }

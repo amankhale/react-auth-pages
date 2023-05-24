@@ -1,26 +1,46 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteEmployee } from "../slice/employee.slice";
-import { getEmployeeData } from "../slice/employee.slice";
+// import { useDispatch } from "react-redux";
+// import { deleteEmployee } from "../slice/employee.slice";
+// import { getEmployeeData } from "../slice/employee.slice";
 import Employee from "../../utils/EmployeeForm.model";
 import { EmployeeRoute } from "../../routes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useEmployeeBlock } from "../../context/web3.context";
 
 export default function EmployeeList() {
-  const data = useEmployeeBlock();
-  const dispatch = useDispatch();
+  const employeeBlockChain: any = useEmployeeBlock();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { empList } = useSelector(getEmployeeData);
+  const [empList, setEmpList]: [any[], any] = useState([]);
+  // const { empList } = useSelector(getEmployeeData);
 
   useEffect(() => {
     document.title = "Employee List";
-    console.log(data);
-  }, [data]);
+  }, []);
 
-  function handleDelete(index: number) {
-    dispatch(deleteEmployee(index));
+  useEffect(() => {
+    if (employeeBlockChain?.employeeBlock) {
+      loadEmployeeList();
+    }
+  }, []);
+
+  async function loadEmployeeList() {
+    const employeeList = await employeeBlockChain.employeeBlock.methods
+      .getEmployeeList()
+      .call();
+    console.log(employeeList);
+    setEmpList(employeeList);
+    console.log(employeeBlockChain.currentAccount);
+  }
+
+  async function handleDelete(_id: string) {
+    await employeeBlockChain.employeeBlock.methods
+      .deleteEmployee(_id)
+      .send({ from: employeeBlockChain.currentAccount })
+      .once("receipt", (receipt: any) => {
+        console.log(receipt);
+      });
   }
 
   function handleEdit(employeeId: string) {
@@ -64,7 +84,7 @@ export default function EmployeeList() {
                       Edit
                     </button>
                     <button
-                      onClick={() => handleDelete(index)}
+                      onClick={() => handleDelete(data.id)}
                       className="delete-btn"
                     >
                       Delete
